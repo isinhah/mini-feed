@@ -14,6 +14,9 @@ public class Tweet implements Serializable {
     @Column(name = "tweet_id")
     private Long tweetId;
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
     private String content;
     @CreationTimestamp
