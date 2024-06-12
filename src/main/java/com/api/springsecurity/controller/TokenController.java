@@ -1,5 +1,6 @@
 package com.api.springsecurity.controller;
 
+import com.api.springsecurity.domain.Role;
 import com.api.springsecurity.dto.LoginRequest;
 import com.api.springsecurity.dto.LoginResponse;
 import com.api.springsecurity.repositories.UserRepository;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Instant;
+import java.util.stream.Collectors;
 
 @RestController
 public class TokenController {
@@ -42,12 +44,18 @@ public class TokenController {
         var now = Instant.now();
         var expiresIn = 300L; // tempo de expiracao do token JWT em segundos
 
+        var scopes = user.get().getRoles()
+                .stream()
+                .map(Role::getName)
+                .collect(Collectors.joining((" ")));
+
         // conjunto de claims do JWT
         var claims = JwtClaimsSet.builder()
                 .issuer("mybackend")
                 .subject(user.get().getUserId().toString())
                 .issuedAt(now)
                 .expiresAt(now.plusSeconds(expiresIn))
+                .claim("scope", scopes)
                 .build();
 
         // geracao do token JWT utilizando os claims definidos
