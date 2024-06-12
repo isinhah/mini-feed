@@ -1,6 +1,8 @@
 package com.api.springsecurity.domain;
 
+import com.api.springsecurity.dto.LoginRequest;
 import jakarta.persistence.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -68,5 +70,10 @@ public class User implements Serializable {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public boolean isLoginCorrect(LoginRequest loginRequest, PasswordEncoder passwordEncoder) {
+        // compara a senha dada pelo usuario com a senha no banco de dados
+        return passwordEncoder.matches(loginRequest.password(), this.password);
     }
 }
