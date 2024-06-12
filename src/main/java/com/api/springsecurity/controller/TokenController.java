@@ -46,8 +46,8 @@ public class TokenController {
         var claims = JwtClaimsSet.builder()
                 .issuer("mybackend")
                 .subject(user.get().getUserId().toString())
+                .issuedAt(now)
                 .expiresAt(now.plusSeconds(expiresIn))
-                .issuedAt(now.plusSeconds(expiresIn))
                 .build();
 
         // geracao do token JWT utilizando os claims definidos

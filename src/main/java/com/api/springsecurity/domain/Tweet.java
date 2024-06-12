@@ -22,6 +22,9 @@ public class Tweet implements Serializable {
     @CreationTimestamp
     private Instant creationTimestamp;
 
+    public Tweet() {
+    }
+
     public Tweet(Long tweetId, String name, User user, String content, Instant creationTimestamp) {
         this.tweetId = tweetId;
         this.name = name;

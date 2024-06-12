@@ -13,6 +13,9 @@ public class Role implements Serializable {
     private Long roleId;
     private String name;
 
+    public Role() {
+    }
+
     public Role(Long roleId, String name) {
         this.roleId = roleId;
         this.name = name;
